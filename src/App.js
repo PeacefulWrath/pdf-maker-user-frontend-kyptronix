@@ -1,7 +1,7 @@
 import "./App.css";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
@@ -14,24 +14,23 @@ function App() {
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
     const tempDoc = document.querySelectorAll(".react-pdf__Document");
-
     tempDoc.forEach((t) => {
       t.style.display = "flex";
       t.style.justifyContent = "center";
-      t.style.height = "800px";
     });
   }
 
   function removeTextLayerOffset() {
-    // const textLayers = document.querySelectorAll(
-    //   ".react-pdf__Page__textContent"
-    // );
-    // textLayers.forEach((layer) => {
-    //   const { style } = layer;
-    //   style.top = "0";
-    //   style.left = "0";
-    //   style.transform = "";
-    // });
+    const textLayers = document.querySelectorAll(
+      ".react-pdf__Page__textContent"
+    );
+    textLayers.forEach((layer) => {
+      const { style } = layer;
+      style.top = "0";
+      style.left = "0";
+      style.transform = "";
+      style.display = "none";
+    });
 
     const tempCanvas = document.querySelectorAll(".react-pdf__Page__canvas");
 
@@ -40,8 +39,26 @@ function App() {
     });
   }
 
+  useEffect(() => {
+    const container = document.querySelector(".pdf-container");
+
+    const handleContextMenu = (event) => {
+      event.preventDefault();
+    };
+
+    if (container) {
+      container.addEventListener("contextmenu", handleContextMenu);
+    }
+
+    return () => {
+      if (container) {
+        container.removeEventListener("contextmenu", handleContextMenu);
+      }
+    };
+  }, []);
+
   return (
-    <>
+    <div className="pdf-container">
       <Document
         file="https://res.cloudinary.com/djlrezkti/image/upload/v1712045037/Non-Disclosure_Agreement_NDA__NADA-AHMED_bymwil.pdf"
         onLoadSuccess={onDocumentLoadSuccess}
@@ -52,7 +69,7 @@ function App() {
       <div className="d-flex justify-content-center align-items-center">
         <button
           className="btn"
-          style={{ backgroundColor: "red" }}
+          style={{ backgroundColor: "red", cursor: "pointer" }}
           onClick={() => {
             if (pageNumber > 1) {
               setPageNumber(pageNumber - 1);
@@ -68,18 +85,19 @@ function App() {
         </p>
         <button
           className="btn"
-          style={{ backgroundColor: "green" }}
+          style={{ backgroundColor: "green", cursor: "pointer" }}
           onClick={() => {
             if (pageNumber === numPages) {
               return;
+            } else {
+              setPageNumber(pageNumber + 1);
             }
-            setPageNumber(pageNumber + 1);
           }}
         >
           Next
         </button>
       </div>
-    </>
+    </div>
   );
 }
 
