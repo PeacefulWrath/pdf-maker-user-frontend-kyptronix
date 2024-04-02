@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import axios from "axios";
-import PdfDetails from "./PdfDetails";
 import { Link } from "react-router-dom";
 
 function PdfList() {
