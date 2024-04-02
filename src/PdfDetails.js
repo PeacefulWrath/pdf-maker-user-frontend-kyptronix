@@ -4,10 +4,9 @@ import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import Watermark from "./Watermark";
-import axios from "axios";
 import { useLocation } from "react-router-dom";
 
-function PdfDetails(props) {
+function PdfDetails() {
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
   const location = useLocation();
