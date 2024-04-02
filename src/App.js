@@ -43,7 +43,7 @@ function App() {
   return (
     <>
       <Document
-        file="https://res.cloudinary.com/djlrezkti/image/upload/v1712033597/page-46_r9dmbm.pdf"
+        file="https://res.cloudinary.com/djlrezkti/image/upload/v1712045037/Non-Disclosure_Agreement_NDA__NADA-AHMED_bymwil.pdf"
         onLoadSuccess={onDocumentLoadSuccess}
       >
         <Page pageNumber={pageNumber} onLoadSuccess={removeTextLayerOffset} />
