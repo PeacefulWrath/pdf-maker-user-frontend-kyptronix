@@ -13,7 +13,7 @@ function PdfList() {
       let filesData = [];
       try {
         const response = await axios.get(
-          "https://pdf-maker-krypto-backend.onrender.com/api/"
+          `${process.env.REACT_APP_BASE_URL}/api/`
         );
         filesData = response.data;
         // console.log("fff", filesData);
